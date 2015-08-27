@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('index')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{customers.title}]]
+        <small th:text="#{customers.index.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form-inline" action="/customers/1" method="get">
+          <div class="input-group">
+            <input type="text" class="form-control input-large" placeholder="keyword" name="keyword" th:value="${keyword}" />
+            <span class="input-group-btn">
+              <input class="btn btn-default" type="submit" value="Search" />
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/customers/1" th:href="@{/customers/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1) + '?keyword='+ (${keyword != null}? ${keyword}: '')" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/category/1" th:href="@{/customers/} + ${i} + '?keyword=' + (${keyword != null}? ${keyword}: '')" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/customers/999" th:href="@{/customers/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1) + '?keyword=' + (${keyword != null}? ${keyword}: '')"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <table class="table table-striped" th:if="${result}">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>customer Number</th>
+              <th>customer Name</th>
+              <th>contact Last Name</th>
+              <th>contact First Name</th>
+              <th>city</th>
+              <th>state</th>
+              <th>postal Code</th>
+              <th>country</th>
+              <th>sales Rep Employee Number</th>
+              <th>credit Limit</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="customer, status : ${result}" th:object="${customer}">
+              <td th:text="${status.count}">1</td>
+              <td th:text="*{customerNumber}">customerNumber</td>
+              <td th:text="*{customerName}">customerName</td>
+              <td th:text="*{contactLastName}">contactLastName</td>
+              <td th:text="*{contactFirstName}">contactFirstName</td>
+              <td th:text="*{city}">city</td>
+              <td th:text="*{state}">state</td>
+              <td th:text="*{postalCode}">postalCode</td>
+              <td th:text="*{country}">country</td>
+              <td th:text="*{salesRepEmployeeNumber}">salesRepEmployeeNumber</td>
+              <td th:text="*{creditLimit}">creditLimit</td>
+              <td>
+                <a class="btn btn-default" href="/customers/detail/0" th:href="@{/customers/detail/} + *{id}">detail</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

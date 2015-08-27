@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('collection')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{collection.title}]]
+        <small th:text="#{collection.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <h2>collection stats</h2>
+      <table class="table table-borderd" th:if="${stats}" th:object="${stats}">
+        <tbody>
+          <tr>
+            <td class="field-label col-xs-2 active">serverUsed</td>
+            <td class="col-md-2">***serverUsed</td>
+            <td class="col-md-8">.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">ns</td>
+            <td class="col-md-2" th:text="*{ns}">ns</td>
+            <td class="col-md-8">The namespace of the current collection, which follows the format [database].[collection]</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">count</td>
+            <td class="col-md-2" th:text="*{count}">count</td>
+            <td class="col-md-8">The number of objects or documents in this collection.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">size</td>
+            <td class="col-md-2" th:text="*{size}">size</td>
+            <td class="col-md-8">
+                The size of the data stored in this collection. This value does not include the size of any indexes associated with the collection, which the totalIndexSize field reports.
+                The scale argument affects this value.
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">avgObjSize</td>
+            <td class="col-md-2" th:text="*{avgObjSize}">avgObjSize</td>
+            <td class="col-md-8">The average size of an object in the collection. The scale argument affects this value.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">storageSize</td>
+            <td class="col-md-2" th:text="*{storageSize}">storageSize</td>
+            <td class="col-md-8">The total amount of storage allocated to this collection for document storage. The scale argument affects this value. The storageSize does not decrease as you remove or shrink documents.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">numExtents</td>
+            <td class="col-md-2" th:text="*{numExtents}">numExtents</td>
+            <td class="col-md-8">The total number of contiguously allocated data file regions.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">nindexes</td>
+            <td class="col-md-2" th:text="*{nindexes}">nindexes</td>
+            <td class="col-md-8">
+                The number of indexes on the collection. All collections have at least one index on the _id field.
+                Changed in version 2.2: Before 2.2, capped collections did not necessarily have an index on the _id field, and some capped collections created with pre-2.2 versions of mongod may not have an _id index.
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">lastExtentSize</td>
+            <td class="col-md-2" th:text="*{lastExtentSize}">lastExtentSize</td>
+            <td class="col-md-8">The size of the last extent allocated. The scale argument affects this value.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">paddingFactor</td>
+            <td class="col-md-2" th:text="*{paddingFactor}">paddingFactor</td>
+            <td class="col-md-8">The amount of space added to the end of each document at insert time. The document padding provides a small amount of extra space on disk to allow a document to grow slightly without needing to move the document. mongod automatically calculates this padding factor</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">systemFlags<br/><small>New in version 2.2.</small></td>
+            <td class="col-md-2">***systemFlags</td>
+            <td class="col-md-8">Reports the flags on this collection that reflect internal server options. Typically this value is 1 and reflects the existence of an index on the _id field.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">userFlags<br/><small>New in version 2.2.</small></td>
+            <td class="col-md-2" th:text="*{userFlags}">userFlags</td>
+            <td class="col-md-8">Reports the flags on this collection set by the user. In version 2.2 the only user flag is usePowerOf2Sizes. If usePowerOf2Sizes is enabled, userFlags will be set to 1, otherwise userFlags will be 0.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">totalIndexSize</td>
+            <td class="col-md-2" th:text="*{totalIndexSize}">totalIndexSize</td>
+            <td class="col-md-8">The total size of all indexes. The scale argument affects this value.</td>
+          </tr>
+          <tr>
+            <td class="field-label col-xs-2 active">ok</td>
+            <td class="col-md-2" th:text="*{ok}">ok</td>
+            <td class="col-md-8">.</td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

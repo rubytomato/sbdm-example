@@ -1,0 +1,14 @@
+table.table td {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis; /* Opera9,10‘Î‰ž */
+}
+
+textarea {
+  min-width:  400px;
+  min-height: 300px;
+  max-width:  400px;
+  max-height: 500px;
+}

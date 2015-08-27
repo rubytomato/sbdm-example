@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('index')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{payments.title}]]
+        <small th:text="#{payments.index.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/payments/1" th:href="@{/payments/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/payments/1" th:href="@{/payments/} + ${i}" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/payments/999" th:href="@{/payments/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1)"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <table class="table table-striped table-condensed" th:if="${result}">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>customer Number</th>
+              <th>check Number</th>
+              <th>payment Date</th>
+              <th>amount</th>
+              <th>detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="payment, status : ${result}" th:object="${payment}">
+              <td th:text="${status.count}">idx</td>
+              <td th:text="*{customerNumber}">customerNumber</td>
+              <td th:text="*{checkNumber}">checkNumber</td>
+              <td th:text="*{#vhd.format(paymentDate)}">paymentDate</td>
+              <td th:text="*{amount}">amount</td>
+              <td>
+                <a class="btn btn-default" href="/payments/detail/0" th:href="@{/payments/detail/} + *{id}">detail</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

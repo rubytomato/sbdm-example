@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('detail')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{payments.title}]]
+        <small th:text="#{payments.detail.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+
+      <div class="col-xs-5">
+        <table class="table" th:if="${payment}" th:object="${payment}">
+          <caption>payment</caption>
+          <tbody>
+            <tr>
+              <th class="field-label col-xs-3 active">id</th>
+              <td class="col-md-9" th:text="*{id}">id</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">customer Number</th>
+              <td class="col-md-9" th:text="*{customerNumber}">customerNumber</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">check Number</th>
+              <td class="col-md-9" th:text="*{checkNumber}">checkNumber</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">payment Date</th>
+              <td class="col-md-9" th:text="*{paymentDate}">paymentDate</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">amount</th>
+              <td class="col-md-9" th:text="*{amount}">amount</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table" th:if="${customer}" th:object="${customer}">
+          <caption>customer</caption>
+          <tbody>
+            <tr>
+              <th class="field-label col-xs-3 active">id</th>
+              <td class="col-md-9" th:text="*{id}">id</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">customer Number</th>
+              <td class="col-md-9" th:text="*{customerNumber}">customerNumber</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">customer Name</th>
+              <td class="col-md-9" th:text="*{customerName}">customerName</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">contact Last Name</th>
+              <td class="col-md-9" th:text="*{contactLastName}">contactLastName</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">contact First Name</th>
+              <td class="col-md-9" th:text="*{contactFirstName}">contactFirstName</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">city</th>
+              <td class="col-md-9" th:text="*{city}">city</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">state</th>
+              <td class="col-md-9" th:text="*{state}">state</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">postal Code</th>
+              <td class="col-md-9" th:text="*{postalCode}">postalCode</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">country</th>
+              <td class="col-md-9" th:text="*{country}">country</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">sales Rep Employee Number</th>
+              <td class="col-md-9" th:text="*{salesRepEmployeeNumber}">salesRepEmployeeNumber</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">credit Limit</th>
+              <td class="col-md-9" th:text="*{creditLimit}">creditLimit</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-xs-7">
+        <div class="well">
+        -
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row well">
+      <div class="col-md-6">
+        <h5>JSON&nbsp;<small>json pretty print</small></h5>
+        <textarea rows="10" class="span12" th:text="${json}"></textarea>
+      </div>
+      <div class="col-md-6">
+        <h5>&nbsp;</h5>
+        <pre class="prettyprint linenums" th:text="${json}"></pre>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

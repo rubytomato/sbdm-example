@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('init')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{init.title}]]
+        <small th:text="#{init.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <h2>collections</h2>
+      <table class="table table-borderd" th:if="${result}">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="res, status : ${result}">
+            <td th:text="${status.count}">idx</td>
+            <td th:text="${res.key}">key</td>
+            <td th:text="${res.value}">value</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

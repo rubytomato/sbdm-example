@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('detail')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{customers.title}]]
+        <small th:text="#{customers.detail.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+
+      <div class="col-xs-5">
+        <table class="table" th:if="${customer}" th:object="${customer}">
+          <caption>customer</caption>
+          <tbody>
+            <tr>
+              <th class="field-label col-xs-3 active">id</th>
+              <td class="col-md-9" th:text="*{id}">id</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">customer Number</th>
+              <td class="col-md-9" th:text="*{customerNumber}">customerNumber</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">customer Name</th>
+              <td class="col-md-9" th:text="*{customerName}">customerName</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">contact Last Name</th>
+              <td class="col-md-9" th:text="*{contactLastName}">contactLastName</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">contact First Name</th>
+              <td class="col-md-9" th:text="*{contactFirstName}">contactFirstName</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">phone</th>
+              <td class="col-md-9" th:text="*{phone}">phone</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">address Line1</th>
+              <td class="col-md-9" th:text="*{addressLine1}">addressLine1</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">address Line2</th>
+              <td class="col-md-9" th:text="*{addressLine2}">addressLine2</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">city</th>
+              <td class="col-md-9" th:text="*{city}">city</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">state</th>
+              <td class="col-md-9" th:text="*{state}">state</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">postal Code</th>
+              <td class="col-md-9" th:text="*{postalCode}">postalCode</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">country</th>
+              <td class="col-md-9" th:text="*{country}">country</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">sales Rep Employee Number</th>
+              <td class="col-md-9" th:text="*{salesRepEmployeeNumber}">salesRepEmployeeNumber</td>
+            </tr>
+            <tr>
+              <th class="field-label col-xs-3 active">credit Limit</th>
+              <td class="col-md-9" th:text="*{creditLimit}">creditLimit</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-xs-7">
+        <table class="table table-striped well" th:if="${orderList}">
+          <caption>order list</caption>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>order Number</th>
+              <th>order Date</th>
+              <th>required Date</th>
+              <th>shipped Date</th>
+              <th>status</th>
+              <th>customer Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="order, status : ${orderList}" th:object="${order}">
+              <td th:text="${status.count}">idx</td>
+              <td th:text="*{orderNumber}">orderNumber</td>
+              <td th:text="*{#vhd.format(orderDate)}">orderDate</td>
+              <td th:text="*{#vhd.format(requiredDate)}">requiredDate</td>
+              <td th:text="*{#vhd.format(shippedDate)}">shippedDate</td>
+              <td th:text="*{status}">status</td>
+              <td th:text="*{customerNumber}">customerNumber</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="row well">
+      <div class="col-md-6">
+        <h5>JSON&nbsp;<small>json pretty print</small></h5>
+        <textarea rows="10" class="span12" th:text="${json}"></textarea>
+      </div>
+      <div class="col-md-6">
+        <h5>&nbsp;</h5>
+        <pre class="prettyprint linenums" th:text="${json}"></pre>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_temp :: header ('index')">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 th:inline="text">
+        [[#{orders.title}]]
+        <small th:text="#{orders.index.subtitle}">subtitle</small>
+      </h1>
+    </div>
+
+    <div th:replace="_temp :: nav"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <nav>
+          <ul class="pagination">
+            <li>
+              <a href="/orders/1" th:href="@{/orders/} + (${currentPage} == 1 ? 1 : ${currentPage} - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:class="${i} == ${currentPage} ? 'active' : ''" th:each="i : ${#numbers.sequence(1, maxPage)}">
+              <a href="/orders/1" th:href="@{/orders/} + ${i}" th:text="${i}">1</a>
+            </li>
+            <li>
+              <a href="/orders/999" th:href="@{/orders/} + (${currentPage} == ${maxPage} ? ${maxPage} : ${currentPage} + 1)"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <table class="table table-striped" th:if="${result}">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>order Number</th>
+              <th>order Date</th>
+              <th>required Date</th>
+              <th>shipped Date</th>
+              <th>status</th>
+              <th>customer Number</th>
+              <th>detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="order, status : ${result}" th:object="${order}">
+              <td th:text="${status.count}">#</td>
+              <td th:text="*{orderNumber}">orderNumber</td>
+              <td th:text="*{#vhd.format(orderDate)}">orderDate</td>
+              <td th:text="*{#vhd.format(requiredDate)}">requiredDate</td>
+              <td th:text="*{#vhd.format(shippedDate)}">shippedDate</td>
+              <td th:text="*{status}">status</td>
+              <td th:text="*{customerNumber}">customerNumber</td>
+              <td>
+                <a class="btn btn-default" href="/orders/detail/0" th:href="@{/orders/detail/} + *{id}">detail</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        total <span class="badge" th:text="${totalCount}">totalCount</span> currentPage <span class="badge" th:text="${currentPage}">currentPage</span> maxPage <span class="badge" th:text="${maxPage}">maxPage</span>
+      </div>
+    </div>
+
+    <div th:replace="_temp :: footer"></div>
+  </div>
+
+  <div th:include="_temp :: script"></div>
+</body>
+</html>
